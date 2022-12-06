@@ -1,5 +1,9 @@
 # Face-Recognition-Attendance-System
 Automatic Attendance using face recognition is a software that provide automatic attendance using videos and photos.
+
+## UI snippet
+![Capture](https://user-images.githubusercontent.com/111524304/205816095-faa52822-b392-4b88-979a-db116ae50f01.PNG)
+
 ## Tested On
 Python Version : 3.9.8
 
