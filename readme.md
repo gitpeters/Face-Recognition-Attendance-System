@@ -7,7 +7,9 @@ Automatic Attendance using face recognition is a software that provide automatic
 ![Capture2](https://user-images.githubusercontent.com/111524304/205816983-bc1a6556-59ef-4596-be2e-55d50be3df80.PNG)
 
 ## Tested On
-Python Version : 3.9.8
+Python Version : 3.9.8 or latest
+
+Download python 3.11.3 [here](https://www.python.org/ftp/python/3.11.3/python-3.11.3-amd64.exe)
 
 OS : UBUNTU 20.04.2LTS
 
