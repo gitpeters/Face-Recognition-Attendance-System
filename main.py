@@ -141,6 +141,8 @@ def gen1(url,student_class):
                     name = max(counts , key = counts.get)
                     if(name not in Attendees_Names):
                         Attendees_Names[name]= 1
+                        if "_" in name:
+                            name = name.replace("_", "/")
                         for y in student_data:
                             print(y)
                             if name in y:
@@ -148,26 +150,27 @@ def gen1(url,student_class):
                                 date = str(x.day)+"-"+str(x.month)+"-"+str(x.year)
                                 pool4.apply_async(submit_live_attendance,(name,student_class,date,))
                                 submit_live_attendance(name,student_class,date)
-                                eel.updateAttendance(name)()
+                                eel.updateAttendance(name)
 
-                print(name)
+                # print(name)
                 names.append(name)
 
 
         # loop over recognized faces
-        """
-        for ((top,right,bottom,left),name)in zip(boxes, names):
-            top = int(top*r)
-            right = int(right*r)
-            bottom = int(bottom*r)
-            left = int(left *r)
-            # draw the predicted face name on the image
-            cv2.rectangle(img, (left, top), (right, bottom),
-                (0, 255, 0), 2)
-            y = top - 15 if top - 15 > 15 else top + 15
-            cv2.putText(img, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
-                0.75, (0, 255, 0), 2)
-        """
+        for ((top, right, bottom, left), name) in zip(boxes, names):
+            
+            # Scale back up face locations since the frame we detected in was scaled to 1/4 size
+            top = int(top * r)
+            right = int(right * r)
+            bottom = int(bottom * r)
+            left = int(left * r)
+
+            # Draw the bounding box around the face
+            cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
+
+            # Put the student name on the image
+            cv2.putText(img, name, (left, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 0), 2)
+   
         ret, jpeg = cv2.imencode('.jpg', img)
         img = jpeg.tobytes()
         yield img
@@ -236,7 +239,7 @@ def gen(url):
             #print("cam nt cnt")
             break
         if capture_status == True:
-            save_path = 'dataset/'+student_id
+            save_path = 'dataset/'+student_id.replace("/", "_")  # replace slashes with underscores
             filename = save_path+"/photo"+str(random.randint(0, 999))+".jpg"
             if not os.path.exists(save_path):
                 os.makedirs(save_path)

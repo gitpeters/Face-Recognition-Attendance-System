@@ -90,7 +90,9 @@ def recognizeFromPhoto(img, student_class):
 				#print(student_data)
 				for y in student_data:
 					#print(y)
-					if name in y:
+					student_id = y[0]
+					student_id = student_id.replace("_", "/")  # replace underscores with slashes
+					if name in student_id:
 						#print('find success')
 						x = datetime.datetime.now()
 						date = str(x.day)+"-"+str(x.month)+"-"+str(x.year)
