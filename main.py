@@ -351,7 +351,7 @@ def deleteStudent(student_id):
 
         #delete student image folder
         try:
-            path = 'dataset/'+student_id
+            path = 'dataset/'+student_id.replace("/", "_")
             shutil.rmtree(path)
         except Exception as e:
             print(e)
